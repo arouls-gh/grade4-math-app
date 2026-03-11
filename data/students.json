@@ -1,0 +1,30 @@
+[
+  {
+    "username": "advik",
+    "name": "advik",
+    "standard": "4",
+    "section": "E",
+    "password": "advik123"
+  },
+  {
+    "username": "aroul",
+    "name": "aroul",
+    "standard": "admin",
+    "section": "admin",
+    "password": "aroul123"
+  },
+  {
+    "username": "test_4_D",
+    "name": "test",
+    "standard": "4",
+    "section": "D",
+    "password": "123"
+  },
+  {
+    "username": "aaa_4_B",
+    "name": "aaa",
+    "standard": "4",
+    "section": "B",
+    "password": "aaa"
+  }
+]

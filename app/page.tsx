@@ -4,83 +4,155 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
-  const router = useRouter();
 
-  const [isSignup, setIsSignup] = useState(false);
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+const router = useRouter();
 
-  function handleSubmit() {
-    const users = JSON.parse(localStorage.getItem("users") || "{}");
+const [username,setUsername] = useState("");
+const [password,setPassword] = useState("");
+const [loading,setLoading] = useState(false);
 
-    if (isSignup) {
-      users[username] = password;
-      localStorage.setItem("users", JSON.stringify(users));
-      alert("Account created successfully!");
-      setIsSignup(false);
-    } else {
-      if (users[username] === password) {
-        localStorage.setItem("currentUser", username);
-        router.push("/workbook");
-      } else {
-        alert("Invalid username or password");
-      }
-    }
-  }
+async function handleSubmit(){
 
-  function resetPassword() {
-    const users = JSON.parse(localStorage.getItem("users") || "{}");
-    users[username] = "1234";
-    localStorage.setItem("users", JSON.stringify(users));
-    alert("Password reset to 1234");
-  }
+if(!username || !password){
+alert("Enter username and password");
+return;
+}
 
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-blue-200">
-      <div className="bg-white p-10 rounded-2xl shadow-2xl text-center w-96 border-4 border-blue-600">
-        <h1 className="text-2xl font-extrabold text-blue-900 mb-6">
-          Advik's Personal Math Workbook - Grade 4
-        </h1>
+setLoading(true);
 
-        <input
-          type="text"
-          placeholder="Username"
-          className="border-2 border-gray-400 p-3 w-full mb-4 rounded text-lg font-bold"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
+const res = await fetch("/api/login",{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({username,password}),
+credentials: "include"
+});
 
-        <input
-          type="password"
-          placeholder="Password"
-          className="border-2 border-gray-400 p-3 w-full mb-4 rounded text-lg font-bold"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+const data = await res.json();
 
-        <button
-          onClick={handleSubmit}
-          className="bg-blue-700 hover:bg-blue-800 text-white font-bold text-lg px-4 py-3 rounded w-full mb-3"
-        >
-          {isSignup ? "Sign Up" : "Login"}
-        </button>
+setLoading(false);
 
-        <button
-          onClick={() => setIsSignup(!isSignup)}
-          className="text-sm font-semibold text-blue-700"
-        >
-          {isSignup ? "Already have account?" : "Create new account"}
-        </button>
+if(data.success){
 
-        <br />
+// give browser a moment to store cookie
+setTimeout(()=>{
+router.push("/workbook");
+},100);
 
-        <button
-          onClick={resetPassword}
-          className="text-sm font-semibold text-red-600 mt-3"
-        >
-          Forgot Password?
-        </button>
-      </div>
-    </div>
-  );
+}else{
+alert(data.message || "Invalid username or password");
+}
+
+}
+
+const title = "my  math  workbook".split("");
+
+const rainbow = [
+"#ff0000",
+"#ff7f00",
+"#ffff00",
+"#00ff00",
+"#0000ff",
+"#4b0082",
+"#9400d3",
+];
+
+return(
+
+<div
+className="min-h-screen flex flex-col items-center justify-center bg-white text-black"
+style={{fontFamily:"var(--font-handwriting)"}}
+>
+
+<div className="text-center mb-24 leading-none">
+
+<h1
+className="font-bold tracking-wide flex flex-wrap justify-center"
+style={{fontSize:"6rem"}}
+>
+
+{title.map((letter,i)=>(
+<span
+key={i}
+style={{
+color:rainbow,
+padding:"0 6px"
+}}
+
+>
+
+{letter===" " ? "\u00A0" : letter} </span>
+))}
+
+</h1>
+
+</div>
+
+<div className="flex flex-col items-center gap-8">
+
+<input
+placeholder="username"
+className="text-2xl text-center border-2 border-black rounded-lg bg-white outline-none w-72 py-3"
+value={username}
+onChange={(e)=>setUsername(e.target.value)}
+/>
+
+<input
+type="password"
+placeholder="password"
+className="text-2xl text-center border-2 border-black rounded-lg bg-white outline-none w-72 py-3"
+value={password}
+onChange={(e)=>setPassword(e.target.value)}
+/>
+
+<button
+onClick={handleSubmit}
+style={{
+backgroundColor:"#7c3aed",
+color:"white",
+fontSize:"26px",
+padding:"16px 60px",
+borderRadius:"12px",
+boxShadow:"0 4px 8px rgba(0,0,0,0.2)",
+cursor:"pointer"
+}}
+disabled={loading}
+
+>
+
+{loading ? "Logging in..." : "Login"}
+
+</button>
+
+<button
+onClick={()=>router.push("/signup")}
+style={{
+fontSize:"18px",
+color:"#2563eb",
+cursor:"pointer"
+}}
+
+>
+
+Create new account </button>
+
+<button
+onClick={()=>router.push("/recover")}
+style={{
+fontSize:"18px",
+color:"#2563eb",
+cursor:"pointer"
+}}
+
+>
+
+Forgot Username / Password </button>
+
+</div>
+
+</div>
+
+);
+
 }
