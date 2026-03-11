@@ -1,40 +1,19 @@
-import fs from "fs"
-import path from "path"
-import { NextResponse } from "next/server"
+import { kv } from "@vercel/kv";
+import { NextResponse } from "next/server";
 
-const filePath = path.join(process.cwd(),"data","studentFeedback.json")
+export async function POST(req: Request) {
 
-export async function POST(req:Request){
+  const { username, chapter, feedback } = await req.json();
 
-  const body = await req.json()
-
-  const { username, chapter, feedback } = body
-
-  if(!username || !chapter || !feedback){
-    return NextResponse.json({error:"Missing fields"},{status:400})
-  }
-
-  let data:any[] = []
-
-  try{
-
-    if(fs.existsSync(filePath)){
-      const file = fs.readFileSync(filePath,"utf8")
-      data = JSON.parse(file)
-    }
-
-  }catch{
-    data=[]
-  }
-
-  data.push({
+  const record = {
     username,
     chapter,
-    feedback
-  })
+    feedback,
+    timestamp: Date.now()
+  };
 
-  fs.writeFileSync(filePath,JSON.stringify(data,null,2))
+  await kv.lpush("studentFeedback", JSON.stringify(record));
 
-  return NextResponse.json({success:true})
+  return NextResponse.json({ success: true });
 
 }

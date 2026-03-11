@@ -1,25 +1,12 @@
+import { kv } from "@vercel/kv";
 import { NextResponse } from "next/server";
-import fs from "fs";
-import path from "path";
 
 export async function GET() {
 
-  try {
+  const data = await kv.lrange("studentFeedback", 0, -1);
 
-    const filePath = path.join(process.cwd(), "data", "studentFeedback.json");
+  const feedback = data.map((x: any) => JSON.parse(x));
 
-    const fileData = fs.readFileSync(filePath, "utf8");
-
-    const feedback = JSON.parse(fileData);
-
-    return NextResponse.json(feedback);
-
-  } catch (err) {
-
-    console.log("Teacher feedback API error:", err);
-
-    return NextResponse.json([]);
-
-  }
+  return NextResponse.json(feedback);
 
 }

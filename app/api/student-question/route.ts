@@ -1,26 +1,20 @@
-import { NextResponse } from "next/server"
-import fs from "fs"
-import path from "path"
+import { kv } from "@vercel/kv";
+import { NextResponse } from "next/server";
 
-const filePath = path.join(process.cwd(),"data","studentQuestions.json")
+export async function POST(req: Request) {
 
-export async function POST(req:Request){
+  const { username, chapter, questionNumber, question } = await req.json();
 
-  const body = await req.json()
-
-  const { username, chapter, questionNumber, question } = body
-
-  const existing = JSON.parse(fs.readFileSync(filePath,"utf8"))
-
-  existing.push({
+  const record = {
     username,
     chapter,
     questionNumber,
-    question
-  })
+    question,
+    timestamp: Date.now()
+  };
 
-  fs.writeFileSync(filePath,JSON.stringify(existing,null,2))
+  await kv.lpush("studentQuestions", JSON.stringify(record));
 
-  return NextResponse.json({status:"saved"})
+  return NextResponse.json({ success: true });
 
 }
