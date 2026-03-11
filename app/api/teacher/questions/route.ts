@@ -1,20 +1,10 @@
-import { kv } from "@vercel/kv";
-import { NextResponse } from "next/server";
+import { kv } from "@vercel/kv"
+import { NextResponse } from "next/server"
 
 export async function GET(){
 
-  try{
+const data = await kv.lrange("studentQuestions",0,-1)
 
-    const questions = await kv.lrange("studentQuestions",0,-1)
-
-    return NextResponse.json(questions)
-
-  }catch(err){
-
-    console.error("Teacher questions API error:",err)
-
-    return NextResponse.json({error:"failed"}, {status:500})
-
-  }
+return NextResponse.json(data)
 
 }
