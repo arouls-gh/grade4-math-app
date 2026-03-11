@@ -34,9 +34,10 @@ banana,
 grapes
 }
 
-const maxVal = Math.max(...Object.values(data))
-const minVal = Math.min(...Object.values(data))
+const values = Object.values(data) as number[]
 
+const maxVal = Math.max(...values)
+const minVal = Math.min(...values)
 const maxFruit = Object.keys(data).find(k=>data[k]===maxVal)
 const minFruit = Object.keys(data).find(k=>data[k]===minVal)
 
