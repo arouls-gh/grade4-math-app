@@ -1,4 +1,4 @@
-import { kv } from "@vercel/kv"
+import Redis from "ioredis"
 import { NextResponse } from "next/server"
 
 export async function POST(req:Request){
