@@ -1,41 +1,35 @@
+import Redis from "ioredis"
 import { NextResponse } from "next/server"
-import fs from "fs"
-import path from "path"
+
+const redis = new Redis(process.env.REDIS_URL as string)
 
 export async function POST(req: Request) {
 
-try {
+try{
 
 const body = await req.json()
 const username = body.username?.trim()
 const password = body.password?.trim()
 
-if (!username || !password) {
+if(!username || !password){
 return NextResponse.json({
 success:false,
 message:"Username and password required"
 })
 }
 
-const filePath = path.join(process.cwd(),"data","students.json")
+const data = await redis.get(`student:${username}`)
 
-if (!fs.existsSync(filePath)) {
+if(!data){
 return NextResponse.json({
 success:false,
-message:"Student database not found"
+message:"Invalid username or password"
 })
 }
 
-const file = fs.readFileSync(filePath,"utf-8")
-const students = file ? JSON.parse(file) : []
+const user = JSON.parse(data)
 
-const user = students.find(
-(s:any) =>
-s.username?.trim().toLowerCase() === username.toLowerCase() &&
-s.password?.trim() === password
-)
-
-if (!user) {
+if(user.password !== password){
 return NextResponse.json({
 success:false,
 message:"Invalid username or password"
@@ -46,16 +40,16 @@ const res = NextResponse.json({
 success:true
 })
 
-res.cookies.set("student_session", username, {
+res.cookies.set("student_session",username,{
 httpOnly:true,
 path:"/"
 })
 
 return res
 
-} catch (err) {
+}catch(err){
 
-console.error("LOGIN ERROR:", err)
+console.error("LOGIN ERROR:",err)
 
 return NextResponse.json({
 success:false,
