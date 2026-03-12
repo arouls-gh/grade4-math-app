@@ -1,12 +1,29 @@
 import Redis from "ioredis"
 import { NextResponse } from "next/server"
 
+const redis = new Redis(process.env.REDIS_URL as string)
+
 export async function POST(req:Request){
 
-const body = await req.json()
+  try{
 
-await kv.lpush("studentQuestions", body)
+    const body = await req.json()
 
-return NextResponse.json({success:true})
+    await redis.lpush(
+      "studentQuestions",
+      JSON.stringify(body)
+    )
+
+    return NextResponse.json({success:true})
+
+  }catch(err){
+
+    console.error("Question Save Error:",err)
+
+    return NextResponse.json({
+      success:false
+    })
+
+  }
 
 }

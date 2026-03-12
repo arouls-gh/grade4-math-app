@@ -1,25 +1,24 @@
-import fs from "fs"
-import path from "path"
+import redis from "@/lib/redis"
 import { NextResponse } from "next/server"
 
-export async function GET() {
+export async function GET(){
 
-  const filePath = path.join(process.cwd(), "app/data/studentQuestions.json")
+try{
 
-  try {
+const data = await redis.lrange("studentQuestions",0,-1)
 
-    const raw = fs.readFileSync(filePath, "utf8")
+return NextResponse.json(
+  data.map(item=>JSON.parse(item))
+)
 
-    const data = raw ? JSON.parse(raw) : []
+}catch(err){
 
-    return NextResponse.json(data)
+console.error(err)
 
-  } catch (err) {
+return NextResponse.json({
+error:"failed"
+})
 
-    console.error(err)
-
-    return NextResponse.json([])
-
-  }
+}
 
 }
