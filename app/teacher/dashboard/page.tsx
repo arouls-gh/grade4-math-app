@@ -28,13 +28,13 @@ export default function Dashboard() {
     try {
 
       const q = await fetch("/api/teacher/questions");
-const qData = await q.json();
+      const qData = await q.json();
 
-const f = await fetch("/api/teacher/feedback");
-const fData = await f.json();
+      const f = await fetch("/api/teacher/feedback");
+      const fData = await f.json();
 
-setQuestions(qData.data || []);
-setFeedback(fData.data || []);
+      setQuestions(qData.data || []);
+      setFeedback(fData.data || []);
 
     } catch (err) {
 
@@ -42,6 +42,19 @@ setFeedback(fData.data || []);
 
     }
 
+  }
+
+  /* -----------------------------
+     NAVIGATION FUNCTIONS
+  ----------------------------- */
+
+  function goCreateStudent(){
+    router.push("/teacher/students");
+  }
+
+  function logout(){
+    localStorage.removeItem("teacher");
+    router.push("/teacher");
   }
 
   /* -----------------------------
@@ -90,9 +103,33 @@ setFeedback(fData.data || []);
 
     <div className="min-h-screen bg-gray-100 p-10 text-black">
 
-      <h1 className="text-4xl font-bold mb-10 text-black">
-        Teacher Insights Dashboard
-      </h1>
+      {/* HEADER */}
+
+      <div className="flex justify-between items-center mb-10">
+
+        <h1 className="text-4xl font-bold text-black">
+          Teacher Insights Dashboard
+        </h1>
+
+        <div className="flex gap-4">
+
+          <button
+            onClick={goCreateStudent}
+            className="bg-green-600 text-white px-5 py-2 rounded"
+          >
+            Create Student
+          </button>
+
+          <button
+            onClick={logout}
+            className="bg-red-600 text-white px-5 py-2 rounded"
+          >
+            Logout
+          </button>
+
+        </div>
+
+      </div>
 
       {/* MOST ASKED QUESTIONS */}
 
