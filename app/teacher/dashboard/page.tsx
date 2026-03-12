@@ -28,13 +28,13 @@ export default function Dashboard() {
     try {
 
       const q = await fetch("/api/teacher/questions");
-      const qData = await q.json();
+const qData = await q.json();
 
-      const f = await fetch("/api/teacher/feedback");
-      const fData = await f.json();
+const f = await fetch("/api/teacher/feedback");
+const fData = await f.json();
 
-      setQuestions(qData);
-      setFeedback(fData);
+setQuestions(qData.data || []);
+setFeedback(fData.data || []);
 
     } catch (err) {
 
