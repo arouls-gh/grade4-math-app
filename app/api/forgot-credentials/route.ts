@@ -1,38 +1,60 @@
+import Redis from "ioredis"
 import { NextResponse } from "next/server"
-import fs from "fs"
-import path from "path"
+
+const redis = new Redis(process.env.REDIS_URL as string)
 
 export async function POST(req: Request){
 
+try{
+
 const {name,standard,section} = await req.json()
 
-const filePath = path.join(process.cwd(),"data","students.json")
-
-if(!fs.existsSync(filePath)){
-return NextResponse.json({success:false})
+if(!name){
+return NextResponse.json({
+success:false,
+message:"Student name required"
+})
 }
 
-const file = fs.readFileSync(filePath,"utf-8")
-const students = file ? JSON.parse(file) : []
+const base = name.split(" ")[0].toLowerCase()
 
-const student = students.find(
-(s:any)=>
-s.name.toLowerCase() === name.toLowerCase() &&
-s.standard === standard &&
-s.section === section
-)
+const keys = await redis.keys(`student:${base}_${standard}_${section}*`)
 
-if(!student){
+if(keys.length === 0){
 return NextResponse.json({
 success:false,
 message:"Student not found"
 })
 }
 
+const data = await redis.get(keys[0])
+
+if(!data){
+return NextResponse.json({
+success:false,
+message:"Student not found"
+})
+}
+
+const student = JSON.parse(data)
+
+const username = keys[0].replace("student:","")
+
 return NextResponse.json({
 success:true,
-username:student.username,
+username,
 password:student.password
 })
+
+}catch(err){
+
+console.error("RECOVER ERROR:",err)
+
+return NextResponse.json({
+success:false,
+message:"Server error"
+})
+
+}
 
 }
