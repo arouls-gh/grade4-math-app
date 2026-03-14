@@ -36,7 +36,9 @@ b:"0.7"
 
 },
 
-hint:`Count how many slices out of 10 are eaten.`,
+hint:`Count how many slices out of 10 are eaten
+Tenths in decimal is the first digit after decimal point
+Hundreths in decimal is the second digit after decimal point.`,
 
 solution:`Rahul ate 7 slices out of 10.
 

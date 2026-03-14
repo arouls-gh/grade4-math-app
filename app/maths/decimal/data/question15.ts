@@ -32,8 +32,7 @@ const chosen = sets[Math.floor(Math.random()*sets.length)]
 
 const shuffled = shuffle(chosen)
 
-const asc = [...chosen].sort((a,b)=>parseFloat(a)-parseFloat(b))
-const desc = [...asc].reverse()
+const desc = [...chosen].sort((a,b)=>parseFloat(b)-parseFloat(a))
 
 return{
 
@@ -41,32 +40,24 @@ id:15,
 
 type:"multi",
 
-text:`Arrange the decimals as asked.`,
+text:`Arrange the following decimals in descending order.`,
 
 order:{
 numbers:shuffled
 },
 
 multi:[
-
 {
-key:"asc",
-text:"A. Arrange the decimals in ascending order."
-},
-
-{
-key:"desc",
-text:"B. Arrange the decimals in descending order."
+key:"order",
+text:"Arrange the decimals in descending order."
 }
-
 ],
 
 correctAnswer:{
-asc:asc.join(","),
-desc:desc.join(",")
+order:desc.join(",")
 },
 
-hint:`Look carefully at the place values.
+hint:`Compare whole numbers first.
 
 Example:
 
@@ -74,20 +65,18 @@ Example:
 0.03 = 0.030  
 0.003 = 0.003`,
 
-solution:`Compare decimal places carefully.
-
-Smaller decimals have more leading zeros.`,
+solution:`Descending order means largest to smallest.`,
 
 stepContent:[
 {key:"s1",text:"Compare whole numbers first."},
 {key:"s2",text:"Then compare tenths, hundredths and thousandths."},
-{key:"s3",text:"Arrange numbers in required order."}
+{key:"s3",text:"Place the largest number first."}
 ],
 
 steps:{
 s1:"whole",
 s2:"place",
-s3:"order"
+s3:"descending"
 }
 
 }

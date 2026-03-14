@@ -1,109 +1,99 @@
-function randomDecimalFraction(){
-
-const types = [
-{den:100, digits:2},
-{den:1000, digits:3},
-{den:10000, digits:4}
-]
-
-const pick = types[Math.floor(Math.random()*types.length)]
-
-const numerator = Math.floor(Math.random()* (pick.den - 1)) + 1
-
-const decimal = (numerator / pick.den).toFixed(pick.digits)
-
-return{
-decimal,
-numerator,
-denominator:pick.den
-}
-
-}
-
 export const question10 = () => {
 
-const q1 = randomDecimalFraction()
-const q2 = randomDecimalFraction()
-const q3 = randomDecimalFraction()
+/* RANDOM BASE NUMBERS */
 
-return{
+const ones = Math.floor(Math.random()*9)+1
+const tenths = Math.floor(Math.random()*9)+1
+
+const ones2 = Math.floor(Math.random()*9)+1
+const hundredths = Math.floor(Math.random()*90)+10
+
+const tens = (Math.floor(Math.random()*9)+1)*10
+const hundredths2 = Math.floor(Math.random()*90)+10
+
+const hundreds = (Math.floor(Math.random()*9)+1)*100
+const tenths2 = Math.floor(Math.random()*9)+1
+
+const hundreds2 = (Math.floor(Math.random()*9)+1)*100
+const hundredths3 = Math.floor(Math.random()*90)+10
+
+/* FRACTIONS */
+
+const f1 = `${ones*10 + tenths}/10`
+const f2 = `${ones2*100 + hundredths}/100`
+const f3 = `${tens*100 + hundredths2}/100`
+const f4 = `${hundreds*10 + tenths2}/10`
+const f5 = `${hundreds2*100 + hundredths3}/100`
+
+/* DECIMAL ANSWERS */
+
+const a1 = ((ones*10 + tenths)/10).toString()
+const a2 = ((ones2*100 + hundredths)/100).toString()
+const a3 = ((tens*100 + hundredths2)/100).toString()
+const a4 = ((hundreds*10 + tenths2)/10).toString()
+const a5 = ((hundreds2*100 + hundredths3)/100).toString()
+
+return {
 
 id:10,
 
 type:"multi",
 
-text:`Convert the decimals into fractions.
-
-Look carefully at the number of digits after the decimal point.`,
+text:`Convert the following fractions into decimals.`,
 
 multi:[
 
-{
-key:"a",
-text:`A. ${q1.decimal} = ____ / ${q1.denominator}`
-},
-
-{
-key:"b",
-text:`B. ${q2.decimal} = ____ / ${q2.denominator}`
-},
-
-{
-key:"c",
-text:`C. ${q3.decimal} = ____ / ${q3.denominator}`
-},
-
-{
-key:"d",
-text:`D. Which fraction represents 0.25 ?`
-},
-
-{
-key:"e",
-text:`E. Which fraction represents 0.304 ?`
-}
+{ key:"a", text:`A. ${f1}` },
+{ key:"b", text:`B. ${f2}` },
+{ key:"c", text:`C. ${f3}` },
+{ key:"d", text:`D. ${f4}` },
+{ key:"e", text:`E. ${f5}` }
 
 ],
 
 correctAnswer:{
-
-a:q1.numerator.toString(),
-b:q2.numerator.toString(),
-c:q3.numerator.toString(),
-d:"25/100",
-e:"304/1000"
-
+a:a1,
+b:a2,
+c:a3,
+d:a4,
+e:a5
 },
 
-hint:`Count the digits after the decimal point.
+hint:`Divide the numerator by the denominator.
 
-1 digit → /10  
-2 digits → /100  
-3 digits → /1000  
-4 digits → /10000`,
+Denominator 10 → move decimal 1 place  
+Denominator 100 → move decimal 2 places
 
-solution:`
-${q1.decimal} = ${q1.numerator}/${q1.denominator}
+Remember a whole number have a hidden decimal point (.0) after the right most digit`,
 
-${q2.decimal} = ${q2.numerator}/${q2.denominator}
+solution:`Example:
 
-${q3.decimal} = ${q3.numerator}/${q3.denominator}
-
-0.25 = 25/100
-
-0.304 = 304/1000
-`,
+45/10 = 4.5  
+327/100 = 3.27`,
 
 stepContent:[
-{key:"s1",text:"Count digits after the decimal point."},
-{key:"s2",text:"Write that many zeros in the denominator."},
-{key:"s3",text:"Remove the decimal point for the numerator."}
+
+{
+key:"s1",
+text:`Look at the denominator.`
+},
+
+{
+key:"s2",
+text:`If the denominator is 10, move the decimal 1 place left.`
+},
+
+{
+key:"s3",
+text:`If the denominator is 100, move the decimal 2 places left.`
+}
+
 ],
 
 steps:{
-s1:"digits",
-s2:"zeros",
-s3:"fraction"
+s1:"10",
+s2:"1",
+s3:"2"
 }
 
 }

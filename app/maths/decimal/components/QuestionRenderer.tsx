@@ -131,8 +131,8 @@ onChange={(e)=>{
 
 const val = e.target.value
 
-if(val === "<" || val === ">" || val === ""){
-setSubAnswers({...subAnswers,[m.key]:val})
+if(val === "<" || val === ">" || val === "=" || val === ""){
+  setSubAnswers({...subAnswers,[m.key]:val})
 }
 
 }}

@@ -4,11 +4,11 @@ id:1,
 
 type:"multi",
 
-text:`Riya has a chocolate bar divided into 10 equal pieces.
+text:`A chocolate bar is divided into 10 equal pieces.
 
-She eats 3 pieces.
+Riya eats 3 pieces.
 
-Use the blocks to show the part she ate.`,
+Shade the blocks to show the pieces she ate.`,
 
 decimalBlocks:{
 label:"Chocolate Bar"
@@ -23,7 +23,7 @@ text:"A. How many tenths are shaded?"
 
 {
 key:"b",
-text:"B. Write the decimal number."
+text:"B. Write the decimal number for the shaded part."
 }
 
 ],
@@ -36,18 +36,33 @@ b:"0.3"
 
 },
 
-hint:`Each block represents 1/10 of the chocolate bar.`,
+hint:`Tenths in a decimal is the first digit after the decimal point.
 
-solution:`3 pieces out of 10 are eaten.
+Hundredths in a decimal is the second digit after the decimal point.`,
+
+solution:`Riya ate 3 pieces out of 10.
 
 So the fraction is 3/10.
 
-3/10 written as a decimal is 0.3.`,
+Three tenths written as a decimal is 0.3.`,
 
 stepContent:[
-{key:"s1",text:"Each block represents one tenth."},
-{key:"s2",text:"Count the shaded blocks."},
-{key:"s3",text:"Write the decimal."}
+
+{
+key:"s1",
+text:"The chocolate bar has 10 equal pieces. What do we call one part out of 10?"
+},
+
+{
+key:"s2",
+text:"Riya ate 3 pieces. So how many tenths are shaded?"
+},
+
+{
+key:"s3",
+text:"Three tenths written as a decimal becomes what number?"
+}
+
 ],
 
 steps:{

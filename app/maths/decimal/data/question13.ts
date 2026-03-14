@@ -1,63 +1,69 @@
-function randomTwoDigit(){
-return Math.floor(Math.random()*90)+10
-}
-
-export const question13 = () => {
-
-const n = randomTwoDigit()
-
-return{
+export const question13 = {
 
 id:13,
 
 type:"multi",
 
-text:`Use the number ${n} to complete the following.`,
+text:`Fill the correct symbol (<, >, =) to compare the decimals.`,
 
 multi:[
 
-{key:"a",text:`A. ${n} ÷ 10 = ______`},
-{key:"b",text:`B. ${n} ÷ 100 = ______`},
-{key:"c",text:`C. ${n} ÷ 1000 = ______`},
-{key:"d",text:`D. ${n} ÷ 10000 = ______`}
+{
+key:"a",
+text:`A. 0.6 [input] 0.60`
+},
+
+{
+key:"b",
+text:`B. 0.45 [input] 0.5`
+},
+
+{
+key:"c",
+text:`C. 0.72 [input] 0.70`
+}
 
 ],
 
 correctAnswer:{
 
-a:(n/10).toString(),
-b:(n/100).toString(),
-c:(n/1000).toString(),
-d:(n/10000).toString()
+a:"=",
+b:"<",
+c:">"
 
 },
 
-hint:`Dividing by powers of 10 moves the decimal point to the left.
+hint:`Compare digits from left to right.
 
-÷10 → move 1 place  
-÷100 → move 2 places  
-÷1000 → move 3 places  
-÷10000 → move 4 places`,
+Add zeros if needed to make decimal places equal.`,
 
-solution:`
-${n} ÷ 10 = ${n/10}
-${n} ÷ 100 = ${n/100}
-${n} ÷ 1000 = ${n/1000}
-${n} ÷ 10000 = ${n/10000}
-`,
+solution:`A. 0.6 = 0.60  
+B. 0.45 < 0.5  
+C. 0.72 > 0.70`,
 
 stepContent:[
-{key:"s1",text:"Dividing by 10 moves the decimal one place left."},
-{key:"s2",text:"Dividing by 100 moves the decimal two places left."},
-{key:"s3",text:"Dividing by 1000 moves the decimal three places left."}
+
+{
+key:"s1",
+text:`0.6 and 0.60 are equivalent decimals.`
+},
+
+{
+key:"s2",
+text:`0.45 is less than 0.5 because 45 hundredths is less than 50 hundredths.`
+},
+
+{
+key:"s3",
+text:`0.72 is greater than 0.70 because 72 hundredths is greater than 70 hundredths.`
+}
+
 ],
 
 steps:{
-s1:"decimal shift",
-s2:"place value",
-s3:"move left"
-}
-
+s1:"=",
+s2:"<",
+s3:">"
 }
 
 }

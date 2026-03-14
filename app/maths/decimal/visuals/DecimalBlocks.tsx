@@ -32,7 +32,7 @@ return(
 {/* TITLE */}
 
 <div className="text-lg font-bold mb-4">
-Click blocks to represent tenths
+Click blocks to represent the "tenths"
 </div>
 
 {/* BLOCK ROW */}

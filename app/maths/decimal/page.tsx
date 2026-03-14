@@ -80,12 +80,14 @@ Object.keys(baseQuestion.correctAnswer).forEach((key)=>{
 let student = subAnswers[key] ?? ""
 let correctAns = baseQuestion.correctAnswer[key]
 
+console.log("Checking", key, "student:", student, "correct:", correctAns)
+
 if(!isNaN(Number(correctAns))){
 
-student = String(student).trim()
-correctAns = String(correctAns).trim()
+const studentNum = Number(student)
+const correctNum = Number(correctAns)
 
-if(student !== correctAns){
+if(studentNum !== correctNum){
 correct=false
 }
 
@@ -98,9 +100,30 @@ else{
 student = String(student).trim()
 correctAns = String(correctAns).trim()
 
-/* ORDERED ANSWERS (like decimals ordering) */
+/* FRACTION CHECK */
 
-if(correctAns.includes(",")){
+if(correctAns.includes("/")){
+
+const [sn,sd] = student.split("/").map(Number)
+const [cn,cd] = correctAns.split("/").map(Number)
+
+if(!sn || !sd){
+correct=false
+}
+else{
+const studentVal = sn / sd
+const correctVal = cn / cd
+
+if(Math.abs(studentVal - correctVal) > 0.000001){
+correct=false
+}
+}
+
+}
+
+/* ORDERED ANSWERS */
+
+else if(correctAns.includes(",")){
 
 if(student !== correctAns){
 correct=false
@@ -108,7 +131,7 @@ correct=false
 
 }
 
-/* NORMAL TEXT ANSWERS */
+/* NORMAL TEXT */
 
 else{
 
@@ -278,7 +301,7 @@ View Solution
 
 <button
 className="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300"
-onClick={()=>setActiveModal("steps")}
+onClick={()=>setActiveModal("step")}
 >
 Think Step-by-Step
 </button>

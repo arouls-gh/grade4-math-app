@@ -1,60 +1,74 @@
-export const question6 = {
+export const question6 = () => {
+
+/* RANDOM WHOLE NUMBER PARTS */
+
+const tens = Math.floor(Math.random()*9+1) * 10
+const ones = Math.floor(Math.random()*9)
+
+/* RANDOM DECIMAL PARTS */
+
+const tenths = Math.floor(Math.random()*9) / 10
+const hundredths = Math.floor(Math.random()*9) / 100
+
+/* FINAL DECIMAL */
+
+const whole = tens + ones
+const decimal = tenths + hundredths
+const answer = Number((whole + decimal).toFixed(2))
+
+return {
 
 id:6,
 
-type:"multi",
+type:"single",
 
-text:`Riya is writing prices in her notebook.
+text:`Write the decimal number for the following expanded form:
 
-Some prices can be written in two ways but mean the same amount.
+${tens} + ${ones} + ${tenths} + ${hundredths}
 
-Complete the equivalent decimals.`,
+Answer = ______`,
 
-multi:[
+correctAnswer:String(answer),
+
+hint:`Add the whole number parts and the decimal parts separately.`,
+
+solution:`${tens} + ${ones} = ${whole}
+
+${tenths} + ${hundredths} = ${decimal}
+
+${whole} + ${decimal} = ${answer}`,
+
+stepContent:[
 
 {
-key:"a",
-text:"A. ₹0.5 = ₹ ___"
+key:"s1",
+text:`Add the whole number parts.
+
+${tens} + ${ones} = ${whole}`
 },
 
 {
-key:"b",
-text:"B. ₹0.3 = ₹ ___"
+key:"s2",
+text:`Add the decimal parts.
+
+${tenths} + ${hundredths} = ${decimal}`
 },
 
 {
-key:"c",
-text:"C. ₹0.7 = ₹ ___"
+key:"s3",
+text:`Combine both parts.
+
+${whole} + ${decimal} = ${answer}`
 }
 
 ],
 
-correctAnswer:{
-
-a:"0.50",
-b:"0.30",
-c:"0.70"
-
-},
-
-hint:`You can add zeros to the right side of a decimal.`,
-
-solution:`Adding a zero to the right of a decimal does not change its value.
-
-₹0.5 = ₹0.50  
-₹0.3 = ₹0.30  
-₹0.7 = ₹0.70`,
-
-stepContent:[
-{key:"s1",text:"Look at the decimal number."},
-{key:"s2",text:"Add a zero to the right side."},
-{key:"s3",text:"The value stays the same."}
-],
-
 steps:{
-s1:"decimal",
-s2:"zero",
-s3:"same"
+s1:String(whole),
+s2:String(decimal),
+s3:String(answer)
+}
+
 }
 
 }

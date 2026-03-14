@@ -4,53 +4,122 @@ id:5,
 
 type:"multi",
 
-text:`Look at the following decimals:
+text:`Write the decimal number 213.45 in expanded form.
 
-0.4  
-0.8  
-0.35  
-
-Answer the questions.`,
+Fill the blanks to show the value of each digit.`,
 
 multi:[
 
 {
 key:"a",
-text:"A. Which decimals are like decimals?"
+text:`A. Value of digit "2" in the hundreds place
+
+___ × ___ = ___`
 },
 
 {
 key:"b",
-text:"B. Which decimal is unlike?"
+text:`B. Value of digit "1" in the tens place
+
+___ × ___ = ___`
+},
+
+{
+key:"c",
+text:`C. Value of digit "3" in the ones place
+
+___ × ___ = ___`
+},
+
+{
+key:"d",
+text:`D. Value of digit "4" in the tenths place
+
+___ × ___ = ___`
+},
+
+{
+key:"e",
+text:`E. Value of digit "5" in the hundredths place
+
+___ × ___ = ___`
 }
 
 ],
 
 correctAnswer:{
-
-a:"0.4,0.8",
-b:"0.35"
-
+a:"200",
+b:"10",
+c:"3",
+d:"0.4",
+e:"0.05"
 },
 
-hint:`Like decimals have the same number of digits after the decimal.`,
+hint:`Multiply each digit by its place value.
 
-solution:`0.4 and 0.8 have one digit after the decimal.
+Hundreds = 100  
+Tens = 10  
+Ones = 1  
+Tenths = 0.1  
+Hundredths = 0.01`,
 
-So they are like decimals.
+solution:`213.45 in expanded form:
 
-0.35 has two digits after the decimal, so it is unlike.`,
+2 × 100 = 200  
+1 × 10 = 10  
+3 × 1 = 3  
+4 × 0.1 = 0.4  
+5 × 0.01 = 0.05
+
+Expanded form:
+
+200 + 10 + 3 + 0.4 + 0.05`,
 
 stepContent:[
-{key:"s1",text:"Count digits after the decimal."},
-{key:"s2",text:"0.4 and 0.8 have one digit."},
-{key:"s3",text:"0.35 has two digits."}
+
+{
+key:"s1",
+text:`Value of digit "2" in the hundreds place
+
+2 × 100 = 200`
+},
+
+{
+key:"s2",
+text:`Value of digit "1" in the tens place
+
+1 × 10 = 10`
+},
+
+{
+key:"s3",
+text:`Value of digit "3" in the ones place
+
+3 × 1 = 3`
+},
+
+{
+key:"s4",
+text:`Value of digit "4" in the tenths place
+
+4 × 0.1 = 0.4`
+},
+
+{
+key:"s5",
+text:`Value of digit "5" in the hundredths place
+
+5 × 0.01 = 0.05`
+}
+
 ],
 
 steps:{
-s1:"digits",
-s2:"0.4,0.8",
-s3:"0.35"
+s1:"200",
+s2:"10",
+s3:"3",
+s4:"0.4",
+s5:"0.05"
 }
 
 }

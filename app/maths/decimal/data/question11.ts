@@ -1,143 +1,112 @@
-function randomDecimalToFraction(){
-
-const type = Math.floor(Math.random()*3)
-
-if(type===0){
-const n = Math.floor(Math.random()*9)+1
-return{
-decimal:`0.${n}`,
-fraction:`${n}/10`
-}
-}
-
-if(type===1){
-const n = Math.floor(Math.random()*90)+10
-return{
-decimal:`0.${n}`,
-fraction:`${n}/100`
-}
-}
-
-const n = Math.floor(Math.random()*900)+100
-return{
-decimal:`0.${n}`,
-fraction:`${n}/1000`
-}
-
-}
-
-function randomFractionToDecimal(){
-
-const type = Math.floor(Math.random()*3)
-
-if(type===0){
-const n = Math.floor(Math.random()*9)+1
-return{
-fraction:`${n}/10`,
-decimal:`0.${n}`
-}
-}
-
-if(type===1){
-const n = Math.floor(Math.random()*90)+10
-return{
-fraction:`${n}/100`,
-decimal:`0.${n}`
-}
-}
-
-const n = Math.floor(Math.random()*900)+100
-return{
-fraction:`${n}/1000`,
-decimal:`0.${n}`
-}
-
-}
-
 export const question11 = () => {
 
-const d1 = randomDecimalToFraction()
-const d2 = randomDecimalToFraction()
-const d3 = randomDecimalToFraction()
-const d4 = randomDecimalToFraction()
-const d5 = randomDecimalToFraction()
+/* HELPER: DECIMAL → FRACTION */
 
-const f1 = randomFractionToDecimal()
-const f2 = randomFractionToDecimal()
-const f3 = randomFractionToDecimal()
-const f4 = randomFractionToDecimal()
-const f5 = randomFractionToDecimal()
+function decimalToFraction(d:number){
 
-return{
+const s = d.toString()
+const digits = s.includes(".") ? s.split(".")[1].length : 0
+const denom = Math.pow(10,digits)
+const numer = Math.round(d * denom)
+
+return `${numer}/${denom}`
+
+}
+
+/* RANDOM DECIMALS */
+
+const d1 = Number((Math.floor(Math.random()*9)+1 + Math.random()).toFixed(1))   // ones + tenths
+const d2 = Number((Math.floor(Math.random()*50)+10 + Math.random()).toFixed(2)) // tens + hundredths
+const d3 = Number((Math.random()).toFixed(3))                                   // thousandths
+
+/* 4 DECIMAL PLACES */
+
+const fourDigits = Math.floor(Math.random()*9000)+1000
+const d4 = Number(`0.${fourDigits}`)
+
+/* RANDOM FRACTIONS */
+
+const f1_num = Math.floor(Math.random()*900)+100
+const f1 = `${f1_num}/100`
+
+/* /1000 FRACTION */
+
+const f2_num = Math.floor(Math.random()*900)+100
+const f2 = `${f2_num}/1000`
+
+return {
 
 id:11,
 
 type:"multi",
 
-text:`Convert the numbers.
+text:`Convert the following numbers.
 
-Decimals can be written as fractions and fractions can be written as decimals.`,
+Some are decimals → fractions.  
+Some are fractions → decimals.`,
 
 multi:[
 
-{key:"a",text:`A. Write ${d1.decimal} as a fraction.`},
-{key:"b",text:`B. Convert ${d2.decimal} into a fraction.`},
-{key:"c",text:`C. Write ${d3.decimal} as a fraction.`},
-{key:"d",text:`D. Convert ${d4.decimal} into a fraction.`},
-{key:"e",text:`E. Write ${d5.decimal} as a fraction.`},
-
-{key:"f",text:`F. ${f1.fraction} = ______`},
-{key:"g",text:`G. ${f2.fraction} = ______`},
-{key:"h",text:`H. ${f3.fraction} = ______`},
-{key:"i",text:`I. ${f4.fraction} = ______`},
-{key:"j",text:`J. ${f5.fraction} = ______`}
+{ key:"a", text:`A. ${d1}` },
+{ key:"b", text:`B. ${d2}` },
+{ key:"c", text:`C. ${d3}` },
+{ key:"d", text:`D. ${d4}` },
+{ key:"e", text:`E. ${f1}` },
+{ key:"f", text:`F. ${f2}` }
 
 ],
 
 correctAnswer:{
 
-a:d1.fraction,
-b:d2.fraction,
-c:d3.fraction,
-d:d4.fraction,
-e:d5.fraction,
-
-f:f1.decimal,
-g:f2.decimal,
-h:f3.decimal,
-i:f4.decimal,
-j:f5.decimal
+a:decimalToFraction(d1),
+b:decimalToFraction(d2),
+c:decimalToFraction(d3),
+d:decimalToFraction(d4),
+e:(f1_num/100).toString(),
+f:(f2_num/1000).toString()
 
 },
 
-hint:`Count the digits after the decimal.
+hint:`Count digits after the decimal.
 
-1 digit → tenths  
-2 digits → hundredths  
-3 digits → thousandths`,
+1 digit → denominator 10  
+2 digits → denominator 100  
+3 digits → denominator 1000  
+4 digits → denominator 10000`,
 
-solution:`${d1.decimal} = ${d1.fraction}
-${d2.decimal} = ${d2.fraction}
-${d3.decimal} = ${d3.fraction}
-${d4.decimal} = ${d4.fraction}
-${d5.decimal} = ${d5.fraction}
+solution:`Example conversions:
 
-${f1.fraction} = ${f1.decimal}
-${f2.fraction} = ${f2.decimal}
-${f3.fraction} = ${f3.decimal}
-${f4.fraction} = ${f4.decimal}
-${f5.fraction} = ${f5.decimal}`,
+0.4 = 4/10  
+0.35 = 35/100  
+0.725 = 725/1000  
+0.4837 = 4837/10000  
+
+375/100 = 3.75  
+428/1000 = 0.428`,
 
 stepContent:[
-{key:"s1",text:"Look at how many digits are after the decimal point."},
-{key:"s2",text:"Write the number without the decimal as the numerator."},
-{key:"s3",text:"Use 10, 100 or 1000 as the denominator."}
+
+{
+key:"s1",
+text:`For decimals → count digits after the decimal.`
+},
+
+{
+key:"s2",
+text:`For fractions → divide numerator by denominator.`
+},
+
+{
+key:"s3",
+text:`4 decimal places → denominator 10000`
+}
+
 ],
 
 steps:{
-s1:"decimal places",
-s2:"numerator",
-s3:"denominator"
+s1:"10",
+s2:"100",
+s3:"10000"
 }
 
 }
