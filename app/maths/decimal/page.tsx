@@ -21,6 +21,7 @@ const [subAnswers,setSubAnswers] = useState<any>({})
 const [activeModal,setActiveModal] = useState<any>(null)
 
 const [isCorrect,setIsCorrect] = useState<boolean|null>(null)
+const [celebrate,setCelebrate] = useState(false)
 
 const router = useRouter();
 const [chapterComplete,setChapterComplete] = useState(false);
@@ -150,6 +151,14 @@ correct=false
 
 setIsCorrect(correct)
 
+if(correct){
+setCelebrate(true)
+
+setTimeout(()=>{
+setCelebrate(false)
+},2000)
+}
+
 }else{
 
 const student = answerInput.trim()
@@ -241,7 +250,17 @@ You completed the Decimal chapter
 </div>
 
 )}
+{celebrate && (
 
+<div className="fixed inset-0 flex items-center justify-center pointer-events-none z-50">
+
+<div className="text-7xl animate-bounce">
+🎉🎉🎉🎉🎉🎉
+</div>
+
+</div>
+
+)}
 <div className="max-w-6xl mx-auto p-10">
 
 <h1 className="text-4xl font-bold text-center text-green-700">
