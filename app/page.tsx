@@ -35,7 +35,10 @@ setLoading(false);
 
 if(data.success){
 
-// give browser a moment to store cookie
+/* SAVE USERNAME FOR FRONTEND FEATURES */
+localStorage.setItem("currentUser", username)
+
+/* give browser a moment to store cookie */
 setTimeout(()=>{
 router.push("/workbook");
 },100);
