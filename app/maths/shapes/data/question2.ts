@@ -1,38 +1,51 @@
-export function question2(){
-
-const length = Math.floor(Math.random()*9) + 6   // 6–14 cm
-
-return {
+export const question2 = {
 
 id:2,
 
 type:"single",
 
-text:`Look at the line segment AB below.
+text:`Look at the two lines.
 
-Use a ruler to measure the length from point A to point B.
+AB is a straight line.
 
-Write the length in centimetres.`,
+CD is a curved line.
 
-showMeasureLine:true,
+Which line is longer?
 
-length:length,
+Write AB or CD.`,
 
-correctAnswer:String(length),
+showLineLengthCompare:true,
 
-hint:`Place a ruler on the screen.
+correctAnswer:"cd",
 
-Measure from point A to point B.`,
+hint:`A straight line is the shortest distance between two points.
 
-solution:`The line segment AB measures ${length} cm.`,
+A curved path between the same two points will always be longer.`,
+
+solution:`Both lines start and end at the same points.
+
+However, AB is a straight line while CD is curved.
+
+A straight line gives the shortest distance between two points.
+
+Since CD bends and curves between the same points, it covers a longer distance.
+
+Therefore the longer line is **CD**.`,
 
 stepContent:[
-{ text:"Find point A." },
-{ text:"Find point B." },
-{ text:"Place ruler at A." },
-{ text:"Read the value at B." }
-]
 
-}
+{ text:"Observe the starting points A and C." },
+
+{ text:"Observe the ending points B and D." },
+
+{ text:"AB is a straight line between the two points." },
+
+{ text:"CD curves between the same two points." },
+
+{ text:"A curved path between two points is longer than the straight path." },
+
+{ text:"Therefore CD is longer." }
+
+]
 
 }

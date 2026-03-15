@@ -9,6 +9,7 @@ import PolygonCountFigures from "./PolygonCountFigures"
 import LineTypeFigures from "./LineTypeFigures"
 import PolygonCheckFigures from "./PolygonCheckFigures"
 import CirclePartsFigures from "./CirclePartsFigures"
+import LineLengthCompare from "./LineLengthCompare"
 
 export default function QuestionRenderer({
 question,
@@ -65,6 +66,16 @@ return(
 
 <div className="mt-8 flex justify-center">
 <MeasureLine length={question.length}/>
+</div>
+
+)}
+
+{/* LINE LENGTH COMPARISON (Question 2) */}
+
+{question.showLineLengthCompare && (
+
+<div className="mt-10 flex justify-center">
+<LineLengthCompare/>
 </div>
 
 )}

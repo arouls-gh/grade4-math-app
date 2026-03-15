@@ -7,15 +7,19 @@ import { questions as dataHandling } from "@/app/maths/datahandling/data/questio
 import { questions as symmetry } from "@/app/maths/symmetrypatterns/data/questions"
 import { questions as perimeter } from "@/app/maths/perimeterarea/data/questions"
 
+function tag(arr:any[], chapter:string){
+return arr.map(q=>({...q, chapter}))
+}
+
 export const questionBank = [
 
-...decimal,
-...measurement,
-...time,
-...shapes,
-...money,
-...dataHandling,
-...symmetry,
-...perimeter
+...tag(decimal,"decimal"),
+...tag(measurement,"measurement"),
+...tag(time,"time"),
+...tag(shapes,"shapes"),
+...tag(money,"money"),
+...tag(dataHandling,"datahandling"),
+...tag(symmetry,"symmetry"),
+...tag(perimeter,"perimeter")
 
 ]

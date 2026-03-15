@@ -94,10 +94,17 @@ setShowCelebration(false)
 
 }else{
 
-const student = normalize(answerInput || "")
-const answer = normalize(String(question.correctAnswer || ""))
+let student = normalize(answerInput || "")
+let answer = normalize(String(question.correctAnswer || ""))
+
+console.log("----- SINGLE ANSWER DEBUG -----")
+console.log("Raw student input:", answerInput)
+console.log("Normalized student:", student)
+console.log("Correct answer:", answer)
 
 const result = student === answer
+
+console.log("Validation result:", result)
 
 setIsCorrect(result)
 
@@ -275,13 +282,10 @@ Submit
 <div className="fixed inset-0 flex items-center justify-center pointer-events-none z-50">
 
 <div className="text-[260px] leading-none animate-bounce select-none">
-🎉🎊🎉🎉🎊🎉🎉🎊🎉🎉🎊🎉🎉🎊🎉
+🎉🎊🎉🎉🎊🎉🎉🎊🎉🎉
 <br/>
-🎉🎊🎉🎉🎊🎉🎉🎊🎉🎉🎊🎉🎉🎊🎉
-<br/>
-🎉🎊🎉🎉🎊🎉🎉🎊🎉🎉🎊🎉🎉🎊🎉
-<br/>
-🎉🎊🎉🎉🎊🎉🎉🎊🎉🎉🎊🎉🎉🎊🎉
+🎉🎊🎉🎉🎊🎉🎉🎊🎉🎉
+
 </div>
 
 </div>
