@@ -86,8 +86,8 @@ Logout </button>
 Select Details
 </h1>
 
-<div className="text-center mb-6 text-lg">
-Welcome <b>{user}</b>
+<div className="text-center mb-6 text-lg text-black font-semibold">
+Welcome <span className="font-bold text-black">{user}</span>
 </div>
 
 {user === "aroul" && (
