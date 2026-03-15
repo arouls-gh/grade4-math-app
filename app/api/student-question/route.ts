@@ -12,16 +12,7 @@ export async function POST(req:Request){
 
     /* GET USER FROM COOKIE */
 
-    const session = cookies().get("student_session")?.value
-
-    let username = "unknown"
-
-    if(session){
-      const user = await redis.get(session)
-      if(user){
-        username = user
-      }
-    }
+    const username = cookies().get("student_session")?.value || "unknown"
 
     /* SAVE QUESTION */
 
